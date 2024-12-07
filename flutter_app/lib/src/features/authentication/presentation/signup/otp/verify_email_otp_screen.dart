@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/features/authentication/presentation/signup/auth_controller.dart';
 
 import '../email/email_notifier_provider.dart';
 import 'otp_input_field.dart';
@@ -83,8 +84,47 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                     width: 300,
                     child: PrimaryButton(
                       disabled: disabled,
-                      buttonText: "Next",
-                      onPressed: () {},
+                      buttonText: "Confirm email",
+                      onPressed: () {
+                        ref.read(authControllerProvider.notifier).login();
+                        showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                child: Container(
+                                  height: 150,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      Center(
+                                        child: Transform.scale(
+                                          scale: 2,
+                                          child: const CircularProgressIndicator
+                                              .adaptive(),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      const Text("Logging in"),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
                     ),
                   ),
                 ),

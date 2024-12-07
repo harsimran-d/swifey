@@ -17,15 +17,11 @@ final otpNotifierProvider =
 
 final isOTPCompletedProvider = Provider.autoDispose<bool>((Ref ref) {
   final otp = ref.watch(otpNotifierProvider);
-  print(otp);
-  print(otp.length);
+
   if (otp.length < 6 ||
       (otp.values.any((digit) => digit.isEmpty || digit == ""))) {
-    print('returning false');
     return true;
   } else {
-    print('returning true');
-
     return false;
   }
 });
