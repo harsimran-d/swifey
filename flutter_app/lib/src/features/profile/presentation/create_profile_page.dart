@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/router/router.dart';
 
 class CreateProfilePage extends StatefulWidget {
   static MaterialPageRoute<void> get route =>
@@ -266,7 +268,9 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     _showSexualOrientationError =
                         _selectedSexualOrientation == null;
                   });
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    context.goNamed(AppRoutes.home.name);
+                  }
                 },
                 buttonText: 'Create Profile',
               ),
