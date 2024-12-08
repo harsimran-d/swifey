@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swifey/src/router/router.dart';
+import 'package:swifey/src/features/authentication/data/auth_repo.dart';
 
 class ProfileStatus extends AsyncNotifier<bool> {
   ProfileStatus();
@@ -11,7 +11,7 @@ class ProfileStatus extends AsyncNotifier<bool> {
 
   void createProfile() {
     state = const AsyncValue.data(true);
-    ref.read(goRouterProvider).goNamed(AppRoutes.match.name);
+    ref.read(authRepoProvider).signInWithFakeUser();
   }
 }
 

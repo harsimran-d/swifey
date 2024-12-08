@@ -4,12 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
 import 'package:swifey/src/features/authentication/presentation/signup/auth_controller.dart';
 
-import '../email/email_notifier_provider.dart';
+import '../email_notifier_provider.dart';
 import 'otp_input_field.dart';
 import 'otp_notifier_provider.dart';
 
+enum VerifyOtpType { signup, signin }
+
 class VerifyEmailOtpScreen extends ConsumerWidget {
-  const VerifyEmailOtpScreen({super.key});
+  const VerifyEmailOtpScreen({
+    required this.verificationType,
+    super.key,
+  });
+  final VerifyOtpType verificationType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,24 +62,25 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                RichText(
-                  text: TextSpan(
-                      text: "Don't have access to this email?  ",
-                      style: const TextStyle(
-                        color: Colors.black87,
-                      ),
-                      children: [
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap = () {},
-                          text: "Update",
-                          style: const TextStyle(
-                            color: Color(0xFFB43625),
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ]),
-                ),
+                if (verificationType == VerifyOtpType.signup)
+                  RichText(
+                    text: TextSpan(
+                        text: "Don't have access to this email?  ",
+                        style: const TextStyle(
+                          color: Colors.black87,
+                        ),
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()..onTap = () {},
+                            text: "Update",
+                            style: const TextStyle(
+                              color: Color(0xFFB43625),
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ]),
+                  ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -84,9 +91,15 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                     width: 300,
                     child: PrimaryButton(
                       disabled: disabled,
-                      buttonText: "Confirm email",
+                      buttonText: verificationType == VerifyOtpType.signup
+                          ? "Confirm email"
+                          : "Sign In",
                       onPressed: () {
-                        ref.read(authControllerProvider.notifier).login();
+                        if (verificationType == VerifyOtpType.signup) {
+                          ref.read(authControllerProvider.notifier).signup();
+                        } else {
+                          ref.read(authControllerProvider.notifier).login();
+                        }
                         showDialog(
                             barrierDismissible: true,
                             context: context,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/features/authentication/presentation/signup/auth_controller.dart';
 import 'package:swifey/src/features/onboarding/presentation/create_profile_screen.dart';
 
 class OnboardingScreen extends ConsumerWidget {
@@ -20,7 +19,7 @@ class OnboardingScreen extends ConsumerWidget {
               iconSize: 32,
               icon: const Icon(Icons.cancel_outlined),
               onPressed: () {
-                ref.read(authControllerProvider.notifier).logout();
+                Navigator.of(context).pop();
               },
             ),
             const Center(

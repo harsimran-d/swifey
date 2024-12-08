@@ -60,12 +60,6 @@ class AuthRepo {
     return true;
   }
 
-  String getIntendedEmail() {
-    // TODO: Send the reques to backend to send verification email
-
-    return 'demo@email.com';
-  }
-
   Future<bool> verifyOtp({required String otp}) async {
     // TODO: Send the reques to backend to send verification email
     print("Verify OTP on the backedn  $otp");

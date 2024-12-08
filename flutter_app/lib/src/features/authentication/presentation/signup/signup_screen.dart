@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
 
-import 'email/email_notifier_provider.dart';
-import 'otp/verify_email_otp_screen.dart';
+import '../email_notifier_provider.dart';
+import '../otp/verify_email_otp_screen.dart';
 
 class SignupScreen extends ConsumerWidget {
   const SignupScreen({super.key});
@@ -50,7 +50,9 @@ class SignupScreen extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return const VerifyEmailOtpScreen();
+                          return const VerifyEmailOtpScreen(
+                            verificationType: VerifyOtpType.signup,
+                          );
                         }));
                       },
                     ),

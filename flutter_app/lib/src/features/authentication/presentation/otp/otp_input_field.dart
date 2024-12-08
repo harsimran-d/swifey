@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swifey/src/features/authentication/presentation/signup/otp/otp_notifier_provider.dart';
+import 'package:swifey/src/features/authentication/presentation/otp/otp_notifier_provider.dart';
 
 class OtpInputField extends ConsumerStatefulWidget {
   const OtpInputField({
