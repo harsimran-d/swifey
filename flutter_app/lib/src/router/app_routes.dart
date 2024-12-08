@@ -1,8 +1,10 @@
 part of 'router.dart';
 
 enum AppRoutes {
-  home,
-  signin,
+  landing,
   signup,
+  signin,
+  onboarding,
   profile,
+  match,
 }
