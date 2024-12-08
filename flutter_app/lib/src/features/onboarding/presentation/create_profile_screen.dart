@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/router/router.dart';
+import 'package:swifey/src/features/profile/application/profile_status.dart';
 
-class CreateProfilePage extends StatefulWidget {
-  static MaterialPageRoute<void> get route =>
-      MaterialPageRoute(builder: (context) => const CreateProfilePage());
-  const CreateProfilePage({super.key});
+class CreateProfileScreen extends ConsumerStatefulWidget {
+  const CreateProfileScreen({super.key});
 
   @override
-  State<CreateProfilePage> createState() => _CreateProfilePageState();
+  ConsumerState<CreateProfileScreen> createState() =>
+      _CreateProfileScreenState();
 }
 
-class _CreateProfilePageState extends State<CreateProfilePage> {
+class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _dobDayController = TextEditingController();
@@ -89,7 +88,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                 if (value == null || value.isEmpty) {
                                   return "Day of birth cannot be empty";
                                 }
-                                return "";
+                                return null;
                               },
                             ),
                           ),
@@ -113,7 +112,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                 if (value == null || value.isEmpty) {
                                   return "Month of birth cannot be empty";
                                 }
-                                return "";
+                                return null;
                               },
                             ),
                           ),
@@ -137,7 +136,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                 if (value == null || value.isEmpty) {
                                   return "Year of birth cannot be empty";
                                 }
-                                return "";
+                                return null;
                               },
                             ),
                           ),
@@ -263,13 +262,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
               PrimaryButton(
                 disabled: false,
                 onPressed: () {
-                  setState(() {
-                    _showGenderError = _selectedGender == null;
-                    _showSexualOrientationError =
-                        _selectedSexualOrientation == null;
-                  });
                   if (_formKey.currentState!.validate()) {
-                    context.goNamed(AppRoutes.home.name);
+                    ref.read(profileStatusProvider.notifier).createProfile();
                   }
                 },
                 buttonText: 'Create Profile',

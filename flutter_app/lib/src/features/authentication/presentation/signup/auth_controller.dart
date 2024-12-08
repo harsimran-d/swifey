@@ -11,7 +11,7 @@ class AuthController extends AsyncNotifier<bool> {
     await Future.delayed(const Duration(milliseconds: 900));
     ref.read(authStateProvider.notifier).login();
 
-    ref.read(goRouterProvider).goNamed(AppRoutes.home.name);
+    ref.read(goRouterProvider).goNamed(AppRoutes.onboarding.name);
   }
 
   Future<void> logout() async {

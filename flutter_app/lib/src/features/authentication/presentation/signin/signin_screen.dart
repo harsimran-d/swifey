@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swifey/src/router/router.dart';
 
-class SigninPage extends StatelessWidget {
-  static MaterialPageRoute<void> get route =>
-      MaterialPageRoute(builder: (context) => const SigninPage());
-  const SigninPage({super.key});
+class SigninScreen extends StatelessWidget {
+  const SigninScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class SigninPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            context.goNamed(AppRoutes.landing.name);
           },
           icon: const Icon(Icons.arrow_back),
         ),
