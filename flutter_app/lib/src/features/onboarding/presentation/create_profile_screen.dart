@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/features/profile/application/profile_status.dart';
+import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
 
 class CreateProfileScreen extends ConsumerStatefulWidget {
   const CreateProfileScreen({super.key});
@@ -262,9 +262,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
               PrimaryButton(
                 disabled: false,
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ref.read(profileStatusProvider.notifier).createProfile();
-                  }
+                  ref.read(authControllerProvider.notifier).signup();
                 },
                 buttonText: 'Create Profile',
               ),

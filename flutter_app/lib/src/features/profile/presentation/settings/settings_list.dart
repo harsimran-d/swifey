@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swifey/src/features/authentication/data/auth_repo.dart';
+import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({
@@ -124,7 +124,7 @@ class SettingsList extends StatelessWidget {
           child: Consumer(builder: (context, ref, widget) {
             return InkWell(
               onTap: () {
-                ref.read(authRepoProvider).signOut();
+                ref.read(authControllerProvider.notifier).logout();
               },
               child: const Center(
                 child: Text(

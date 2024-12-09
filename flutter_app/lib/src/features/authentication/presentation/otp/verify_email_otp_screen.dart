@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/features/authentication/presentation/signup/auth_controller.dart';
+import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
+import 'package:swifey/src/router/router.dart';
 
 import '../email_notifier_provider.dart';
 import 'otp_input_field.dart';
@@ -96,7 +98,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                           : "Sign In",
                       onPressed: () {
                         if (verificationType == VerifyOtpType.signup) {
-                          ref.read(authControllerProvider.notifier).signup();
+                          context.goNamed(AppRoutes.onboarding.name);
                         } else {
                           ref.read(authControllerProvider.notifier).login();
                         }

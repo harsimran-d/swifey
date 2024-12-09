@@ -7,12 +7,9 @@ import 'src/app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final container = ProviderContainer();
-  try {
-    // Pre-fetch the signed-in user data
-    await container.read(authRepoProvider).getSignedInUser();
-  } catch (e) {
-    print("Error initializing user: $e");
-  }
+
+  await container.read(authRepoProvider.notifier).getSignedInUser();
+
   runApp(UncontrolledProviderScope(
     container: container,
     child: const App(),
