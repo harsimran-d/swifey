@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
+import 'package:swifey/src/features/reclaim/presentation/reclaim_screen.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({
@@ -92,7 +93,8 @@ class SettingsList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   onTap: () {
-                    // TODO: Add logic to trigger a reclaim verification flow
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReclaimExample()));
                   },
                   leading: const Text(
                     'Status',
