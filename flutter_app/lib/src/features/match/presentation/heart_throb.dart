@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class HeartThrob extends StatefulWidget {
+  const HeartThrob({super.key});
+
   @override
-  _HeartThrobState createState() => _HeartThrobState();
+  HeartThrobState createState() => HeartThrobState();
 }
 
-class _HeartThrobState extends State<HeartThrob>
+class HeartThrobState extends State<HeartThrob>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;

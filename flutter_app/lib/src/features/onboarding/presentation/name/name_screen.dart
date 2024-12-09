@@ -62,10 +62,11 @@ class NameScreen extends StatelessWidget {
                 PrimaryButton(
                   buttonText: "Next",
                   onPressed: () async {
+                    final navigator = Navigator.of(context);
                     final goAhead = await showDialog<bool>(
                         context: context, builder: (context) => LetsGoDialog());
                     if (goAhead != null && goAhead) {
-                      Navigator.of(context).push(BirthdayScreen.screen());
+                      navigator.push(BirthdayScreen.screen());
                     }
                   },
                   disabled: false,

@@ -6,11 +6,13 @@ import 'profile_card.dart';
 import 'profile_notifier.dart';
 
 class SwipeableCardWidget extends ConsumerStatefulWidget {
+  const SwipeableCardWidget({super.key});
+
   @override
-  _SwipeableCardWidgetState createState() => _SwipeableCardWidgetState();
+  SwipeableCardWidgetState createState() => SwipeableCardWidgetState();
 }
 
-class _SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
+class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
     with TickerProviderStateMixin {
   late AnimationController _swipeAnimationController;
   late AnimationController _scaleAnimationController;

@@ -4,11 +4,13 @@ import 'package:reclaim_sdk/utils/types.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReclaimExample extends StatefulWidget {
+  const ReclaimExample({super.key});
+
   @override
-  _ReclaimExampleState createState() => _ReclaimExampleState();
+  ReclaimExampleState createState() => ReclaimExampleState();
 }
 
-class _ReclaimExampleState extends State<ReclaimExample> {
+class ReclaimExampleState extends State<ReclaimExample> {
   String _status = '';
   String _proofData = '';
 
