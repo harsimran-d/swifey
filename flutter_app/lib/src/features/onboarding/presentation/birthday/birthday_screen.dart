@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/features/onboarding/presentation/birthday/birthday_controller.dart';
 import 'package:swifey/src/features/onboarding/presentation/top_progress_bar.dart';
 
 import '../gender/gender_screen.dart';
@@ -45,13 +47,20 @@ class BirthdayScreen extends StatelessWidget {
                         height: 200,
                         child: Transform.scale(
                           scale: 1.3,
-                          child: CupertinoDatePicker(
-                            mode: CupertinoDatePickerMode.date,
-                            maximumYear: 2006,
-                            minimumYear: 1900,
-                            initialDateTime: DateTime(2006),
-                            onDateTimeChanged: (dataTime) {},
-                          ),
+                          child: Consumer(builder: (context, ref, _) {
+                            final date = ref.read(birthdayControllerProvider);
+                            return CupertinoDatePicker(
+                              mode: CupertinoDatePickerMode.date,
+                              maximumYear: DateTime.now().year - 18,
+                              minimumYear: 1900,
+                              initialDateTime: date,
+                              onDateTimeChanged: (dateTime) {
+                                ref
+                                    .read(birthdayControllerProvider.notifier)
+                                    .updateBirthday(dateTime);
+                              },
+                            );
+                          }),
                         ),
                       ),
                     ),

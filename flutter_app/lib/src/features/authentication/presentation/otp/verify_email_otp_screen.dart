@@ -143,6 +143,9 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                )
               ],
             )),
       ),
