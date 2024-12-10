@@ -42,6 +42,7 @@ class NameScreen extends StatelessWidget {
                 ),
                 Consumer(builder: (context, ref, child) {
                   return TextFormField(
+                    focusNode: FocusNode()..requestFocus(),
                     decoration: InputDecoration(
                       hintText: "Enter first name",
                       hintStyle: TextStyle(color: Colors.grey),

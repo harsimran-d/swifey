@@ -36,6 +36,7 @@ class SignupScreen extends ConsumerWidget {
                   ),
                 ),
                 TextField(
+                  focusNode: FocusNode()..requestFocus(),
                   onChanged: (value) {
                     ref.read(emailNotifierProvider.notifier).updateEmail(value);
                   },
