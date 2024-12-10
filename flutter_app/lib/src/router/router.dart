@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
+import 'package:swifey/src/features/authentication/data/auth_repo.dart';
 import 'package:swifey/src/features/authentication/presentation/signin/signin_screen.dart';
 import 'package:swifey/src/features/authentication/presentation/signup/signup_screen.dart';
 import 'package:swifey/src/features/landing/presentation/landing_screen.dart';
@@ -21,7 +21,7 @@ final goRouterProvider = Provider<GoRouter>((Ref ref) {
       navigatorKey: _goRouterKey,
       debugLogDiagnostics: true,
       redirect: (context, state) {
-        final user = ref.watch(authControllerProvider);
+        final user = ref.watch(authRepoProvider);
         final isAuthenticated = user != null;
         final guestOnlyPaths = ['/signin', '/signup', '/'];
         final loginRequiredPaths = ['/match', '/profile'];
