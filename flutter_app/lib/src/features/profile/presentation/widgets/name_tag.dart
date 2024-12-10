@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
 
 class NameTag extends StatelessWidget {
-  const NameTag({super.key});
-
+  const NameTag({required this.name, required this.age, super.key});
+  final String name;
+  final String age;
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "Karan, 29",
+    return Text(
+      "$name, $age",
       style: TextStyle(
         fontSize: 28,
       ),

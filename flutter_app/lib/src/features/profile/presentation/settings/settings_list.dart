@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swifey/src/features/authentication/data/auth_repo.dart';
 import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
 import 'package:swifey/src/features/reclaim/presentation/reclaim_screen.dart';
 
@@ -17,17 +18,21 @@ class SettingsList extends StatelessWidget {
             color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Column(
+          child: Column(
             children: [
               ListTile(
                 leading: Text(
                   'Email',
                   style: TextStyle(fontSize: 16),
                 ),
-                title: Text(
-                  'karan@gmail.com',
-                  textAlign: TextAlign.end,
-                ),
+                title: Consumer(builder: (context, ref, _) {
+                  final user = ref.watch(authRepoProvider)!;
+                  final email = user.email;
+                  return Text(
+                    email,
+                    textAlign: TextAlign.end,
+                  );
+                }),
                 trailing: Icon(
                   Icons.arrow_forward_ios_outlined,
                   size: 16,
@@ -72,7 +77,7 @@ class SettingsList extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 ),
                 title: Text(
-                  'Delhi,India',
+                  'Unknown',
                   textAlign: TextAlign.end,
                 ),
                 trailing: Icon(

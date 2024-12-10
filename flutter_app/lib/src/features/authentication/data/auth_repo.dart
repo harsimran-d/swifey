@@ -4,7 +4,11 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'
     hide Options;
-import 'package:swifey/src/features/authentication/application/fake_auth_service.dart';
+import 'package:swifey/src/features/authentication/presentation/email_controller.dart';
+import 'package:swifey/src/features/onboarding/presentation/birthday/birthday_controller.dart';
+import 'package:swifey/src/features/onboarding/presentation/gender/gender_controller.dart';
+import 'package:swifey/src/features/onboarding/presentation/interest/interest_controller.dart';
+import 'package:swifey/src/features/onboarding/presentation/name/name_controller.dart';
 
 import '../domain/app_user.dart';
 
@@ -38,9 +42,29 @@ class AuthRepo extends Notifier<AppUser?> {
   }
 
   Future<void> signInWithFakeUser() async {
-    final user = FakeAuthService.fakeAppUser;
+    final email = ref.read(emailControllerProvider);
+    final name = ref.read(nameControllerProvider);
+    final gender = ref.read(genderControllerProvider);
+    final interest = ref.read(interestControllerProvider);
+    final birtday = ref.read(birthdayControllerProvider);
+
+    final user = AppUser(
+      id: "1",
+      name: name,
+      email: email,
+      token: "",
+      gender: gender,
+      interest: interest,
+      birthday: birtday,
+    );
     await saveUser(user);
     state = user;
+    print(user.toString());
+    ref.invalidate(emailControllerProvider);
+    ref.invalidate(nameControllerProvider);
+    ref.invalidate(birthdayControllerProvider);
+    ref.invalidate(genderControllerProvider);
+    ref.invalidate(interestControllerProvider);
   }
 
   Future<void> saveUser(AppUser user) async {
