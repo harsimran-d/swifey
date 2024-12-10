@@ -17,6 +17,12 @@ class _OtpInputFieldState extends ConsumerState<OtpInputField> {
       List.generate(6, (index) => TextEditingController());
 
   @override
+  void initState() {
+    super.initState();
+    _focusNodes[0].requestFocus();
+  }
+
+  @override
   void dispose() {
     for (var focusNode in _focusNodes) {
       focusNode.dispose();
