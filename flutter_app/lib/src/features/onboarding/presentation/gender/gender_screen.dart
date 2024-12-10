@@ -56,7 +56,7 @@ class GenderScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(InterestScreen.screen());
                   },
-                  disabled: gender == null,
+                  disabled: gender.isEmpty,
                 );
               },
             ),
