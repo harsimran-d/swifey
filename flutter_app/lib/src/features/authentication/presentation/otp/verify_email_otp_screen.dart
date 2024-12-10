@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,7 +56,56 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                         TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              showNotImplementedAlertDialog(context: context);
+                              showModalBottomSheet<void>(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                isDismissible: true,
+                                context: context,
+                                builder: (context) {
+                                  Timer(Duration(seconds: 2), () {
+                                    if (context.mounted &&
+                                        Navigator.of(context).canPop()) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  });
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 30),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            const Icon(
+                                              Icons.sms_outlined,
+                                              color: Colors.red,
+                                              size: 40,
+                                            ),
+                                            const Text(
+                                              'Another OTP on its way',
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
                             },
                           text: "  Resend",
                           style: const TextStyle(
@@ -65,7 +116,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                       ]),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 if (verificationType == VerifyOtpType.signup)
                   RichText(
@@ -78,7 +129,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                           TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                showNotImplementedAlertDialog(context: context);
+                                Navigator.of(context).pop();
                               },
                             text: "Update",
                             style: const TextStyle(

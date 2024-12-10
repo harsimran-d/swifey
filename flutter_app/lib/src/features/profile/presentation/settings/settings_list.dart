@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/common/widgets/buttons/secondary_button.dart';
 import 'package:swifey/src/common/widgets/dialogs/alert_dialogs.dart';
 import 'package:swifey/src/features/authentication/data/auth_repo.dart';
 import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
@@ -145,7 +148,76 @@ class SettingsList extends StatelessWidget {
           child: Consumer(builder: (context, ref, widget) {
             return InkWell(
               onTap: () {
-                ref.read(authControllerProvider.notifier).logout();
+                // ref.read(authControllerProvider.notifier).logout();
+                showModalBottomSheet<void>(
+                  isScrollControlled: true,
+                  isDismissible: true,
+                  context: context,
+                  builder: (context) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Icon(
+                            Icons.logout_outlined,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                          const Text(
+                            'Sign Out',
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                          const Text('Are you Sure?'),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Flexible(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: SecondaryButton(
+                                      buttonText: 'Cancel',
+                                      onPressed: () {
+                                        context.pop();
+                                      }),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: PrimaryButton(
+                                    buttonText: 'Sign Out',
+                                    onPressed: () {
+                                      ref
+                                          .read(authControllerProvider.notifier)
+                                          .logout();
+                                    },
+                                    disabled: false,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
               child: const Center(
                 child: Text(
