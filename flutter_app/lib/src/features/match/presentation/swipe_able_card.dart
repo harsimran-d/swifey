@@ -83,56 +83,72 @@ class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
 
   @override
   Widget build(BuildContext context) {
-    final profile = ref.watch(profileProvider);
+    final (profile, nextProfile) = ref.watch(profileProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Center(
-          child: profile == null
-              ? HeartThrob()
-              : Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 5),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                    clipBehavior: Clip.hardEdge,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        GestureDetector(
-                          onPanUpdate: (details) {
-                            setState(() {
-                              _dragDistance += details.delta.dx;
-                            });
-                          },
-                          onPanEnd: (details) {
-                            if (_dragDistance > 100) {
-                              _onSwipeRight();
-                            } else if (_dragDistance < -100) {
-                              _onSwipeLeft();
-                            } else {
-                              _resetCardPosition();
-                            }
-                          },
-                          child: AnimatedBuilder(
-                            animation: _swipeAnimationController,
-                            builder: (context, child) {
-                              return Transform.translate(
-                                offset: _swipeAnimationController.isAnimating
-                                    ? _swipeAnimation.value
-                                    : Offset(_dragDistance, 0),
-                                child: child,
-                              );
-                            },
-                            child: ProfileCard(profile: profile),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                "Swifey",
+                style: TextStyle(
+                  fontSize: 36,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
-        ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: profile == null
+                    ? HeartThrob()
+                    : Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          nextProfile == null
+                              ? HeartThrob()
+                              : ProfileCard(profile: nextProfile),
+                          GestureDetector(
+                            onPanUpdate: (details) {
+                              setState(() {
+                                _dragDistance += details.delta.dx;
+                              });
+                            },
+                            onPanEnd: (details) {
+                              if (_dragDistance > 100) {
+                                _onSwipeRight();
+                              } else if (_dragDistance < -100) {
+                                _onSwipeLeft();
+                              } else {
+                                _resetCardPosition();
+                              }
+                            },
+                            child: AnimatedBuilder(
+                              animation: _swipeAnimationController,
+                              builder: (context, child) {
+                                return Transform.translate(
+                                  offset: _swipeAnimationController.isAnimating
+                                      ? _swipeAnimation.value
+                                      : Offset(_dragDistance, 0),
+                                  child: child,
+                                );
+                              },
+                              child: ProfileCard(profile: profile),
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

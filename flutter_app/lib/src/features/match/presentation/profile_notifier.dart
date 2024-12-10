@@ -1,57 +1,54 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swifey/src/features/match/data/dummy_data.dart';
 
 import '../domain/profile.dart';
 
-final profileProvider = NotifierProvider<Profiles, Profile?>(
+final profileProvider = NotifierProvider<Profiles, (Profile?, Profile?)>(
   () => Profiles(),
 );
 
-class Profiles extends Notifier<Profile?> {
+class Profiles extends Notifier<(Profile?, Profile?)> {
   Profiles();
 
   @override
-  Profile? build() {
+  (Profile?, Profile?) build() {
     getInitialProfiles();
-    return null;
+    return (null, null);
   }
 
-  int _count = 0;
-  static final _profiles = [
-    Profile(
-      assetName: 'assets/images/girl1.jpg',
-      name: "Neha",
-      age: 29,
-    ),
-    Profile(
-      assetName: 'assets/images/girl2.jpg',
-      name: "Pooja",
-      age: 26,
-    ),
-    Profile(
-      assetName: 'assets/images/girl3.jpg',
-      name: "Sweety",
-      age: 28,
-    ),
-    Profile(
-      assetName: 'assets/images/girl4.jpg',
-      name: "Joanne",
-      age: 24,
-    ),
-  ];
+  int _index = 0;
+  static final _profiles = dummyData.map((json) {
+    return Profile.fromMap(json);
+  }).toList();
 
   Future<void> getInitialProfiles() async {
     await Future.delayed(Duration(milliseconds: 800));
-    state = _profiles[_count];
+    Profile? profile;
+    Profile? nextProfile;
+    if (_profiles.isEmpty || _profiles.length < _index) {
+      state = (profile, nextProfile);
+      return;
+    }
+    profile = _profiles[_index];
+    if (_profiles.length > _index + 1) {
+      nextProfile = _profiles[_index + 1];
+    }
+    state = (profile, nextProfile);
   }
 
   Future<void> fetchMoreProfiles() async {
-    _count++;
-
-    if (_count == 4) {
-      _count = 0;
-      state = null;
-      await Future.delayed(Duration(milliseconds: 500));
+    _index++;
+    Profile? profile;
+    Profile? nextProfile;
+    if (_index == _profiles.length) {
+      _index = 0;
+      state = (profile, nextProfile);
+      await Future.delayed(Duration(milliseconds: 900));
     }
-    state = _profiles[_count];
+    profile = _profiles[_index];
+    if (_profiles.length > _index + 1) {
+      nextProfile = _profiles[_index + 1];
+    }
+    state = (profile, nextProfile);
   }
 }
