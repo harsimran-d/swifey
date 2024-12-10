@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/common/widgets/dialogs/alert_dialogs.dart';
+import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
 import 'package:swifey/src/router/router.dart';
 
 import '../email_controller.dart';
@@ -197,7 +197,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                                 );
                               });
                         } else {
-                          showNotImplementedAlertDialog(context: context);
+                          ref.read(authControllerProvider.notifier).login();
                         }
                       },
                     ),

@@ -41,6 +41,32 @@ class AuthRepo extends Notifier<AppUser?> {
     }
   }
 
+  Future<void> loginWithLocalUser() async {
+    final email = ref.read(emailControllerProvider);
+
+    final gender = ref.read(genderControllerProvider);
+    final interest = ref.read(interestControllerProvider);
+    final birtday = ref.read(birthdayControllerProvider);
+
+    final user = AppUser(
+      id: "1",
+      name: "Dummy",
+      email: email,
+      token: "",
+      gender: gender,
+      interest: interest,
+      birthday: birtday,
+    );
+    await saveUser(user);
+    state = user;
+    print(user.toString());
+    ref.invalidate(emailControllerProvider);
+    ref.invalidate(nameControllerProvider);
+    ref.invalidate(birthdayControllerProvider);
+    ref.invalidate(genderControllerProvider);
+    ref.invalidate(interestControllerProvider);
+  }
+
   Future<void> signUpWithLocalUser() async {
     final email = ref.read(emailControllerProvider);
     final name = ref.read(nameControllerProvider);

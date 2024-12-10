@@ -19,7 +19,9 @@ final emailControllerProvider = NotifierProvider<EmailController, String>(() {
 
 final hiddenEmailProvider = Provider.autoDispose<String>((Ref ref) {
   final email = ref.watch(emailControllerProvider);
-
+  if (email.isEmpty || email.length < 2) {
+    return "";
+  }
   final parts = email.split("@");
   if (parts[0].length > 2) {
     final stars = "*" * (parts[0].length - 2);
