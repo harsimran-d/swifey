@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
 import 'package:swifey/src/features/onboarding/presentation/interest/interest_screen.dart';
 
 import '../top_progress_bar.dart';
+import 'gender_controller.dart';
+import 'gender_options.dart';
 
 class GenderScreen extends StatelessWidget {
   static MaterialPageRoute screen() =>
@@ -40,77 +43,24 @@ class GenderScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Ink(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.red,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(25)),
-                      child: InkWell(
-                        child: Center(
-                            child: Text(
-                          "Woman",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Ink(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(25)),
-                      child: InkWell(
-                        child: Center(
-                          child: Text("Man",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Spacer(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: PrimaryButton(
+              GenderOptions(),
+            ],
+          )),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final gender = ref.watch(genderControllerProvider);
+                return PrimaryButton(
                   buttonText: "Next",
                   onPressed: () {
                     Navigator.of(context).push(InterestScreen.screen());
                   },
-                  disabled: false,
-                ),
-              )
-            ],
-          )),
+                  disabled: gender == null,
+                );
+              },
+            ),
+          )
         ],
       )),
     );
