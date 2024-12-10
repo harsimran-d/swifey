@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/features/onboarding/presentation/name/name_controller.dart';
 
 class LetsGoDialog extends StatelessWidget {
   const LetsGoDialog({
@@ -27,10 +29,13 @@ class LetsGoDialog extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(
-              "Welcome, Name!",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
+            Consumer(builder: (context, ref, _) {
+              final name = ref.watch(nameControllerProvider);
+              return Text(
+                "Welcome, $name",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              );
+            }),
             SizedBox(
               height: 12,
             ),
