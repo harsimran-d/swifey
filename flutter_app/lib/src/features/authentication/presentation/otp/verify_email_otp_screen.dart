@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
-import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
+import 'package:swifey/src/common/widgets/dialogs/alert_dialogs.dart';
 import 'package:swifey/src/router/router.dart';
 
 import '../email_controller.dart';
@@ -52,7 +52,10 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                       ),
                       children: [
                         TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              showNotImplementedAlertDialog(context: context);
+                            },
                           text: "  Resend",
                           style: const TextStyle(
                             color: Color(0xFF2F71BA),
@@ -99,46 +102,49 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                       onPressed: () {
                         if (verificationType == VerifyOtpType.signup) {
                           context.goNamed(AppRoutes.onboarding.name);
-                        } else {
-                          ref.read(authControllerProvider.notifier).login();
-                        }
-                        showDialog(
-                            barrierDismissible: true,
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                child: Container(
-                                  height: 150,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      Center(
-                                        child: Transform.scale(
-                                          scale: 2,
-                                          child: const CircularProgressIndicator
-                                              .adaptive(),
+
+                          showDialog(
+                              barrierDismissible: true,
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: Container(
+                                    height: 150,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 30,
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      const Text("Logging in"),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
+                                        Center(
+                                          child: Transform.scale(
+                                            scale: 2,
+                                            child:
+                                                const CircularProgressIndicator
+                                                    .adaptive(),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        const Text("Logging in"),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            });
+                                );
+                              });
+                        } else {
+                          showNotImplementedAlertDialog(context: context);
+                        }
                       },
                     ),
                   ),

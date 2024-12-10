@@ -41,7 +41,7 @@ class AuthRepo extends Notifier<AppUser?> {
     }
   }
 
-  Future<void> signInWithFakeUser() async {
+  Future<void> signUpWithLocalUser() async {
     final email = ref.read(emailControllerProvider);
     final name = ref.read(nameControllerProvider);
     final gender = ref.read(genderControllerProvider);

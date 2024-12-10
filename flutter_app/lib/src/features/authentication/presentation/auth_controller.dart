@@ -12,12 +12,7 @@ class AuthController extends Notifier<void> {
 
   Future<void> signup() async {
     await Future.delayed(const Duration(milliseconds: 900));
-    await ref.read(authRepoProvider.notifier).signInWithFakeUser();
-  }
-
-  Future<void> login() async {
-    await Future.delayed(const Duration(milliseconds: 900));
-    await ref.read(authRepoProvider.notifier).signInWithFakeUser();
+    await ref.read(authRepoProvider.notifier).signUpWithLocalUser();
   }
 
   Future<void> logout() async {
