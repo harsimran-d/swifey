@@ -1,19 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EmailNotifier extends StateNotifier<String> {
-  EmailNotifier() : super("");
+class EmailController extends Notifier<String> {
+  EmailController();
+
+  @override
+  String build() {
+    return "";
+  }
+
   void updateEmail(String email) {
     state = email;
   }
 }
 
-final emailNotifierProvider =
-    StateNotifierProvider.autoDispose<EmailNotifier, String>((_) {
-  return EmailNotifier();
+final emailControllerProvider = NotifierProvider<EmailController, String>(() {
+  return EmailController();
 });
 
 final hiddenEmailProvider = Provider.autoDispose<String>((Ref ref) {
-  final email = ref.watch(emailNotifierProvider);
+  final email = ref.watch(emailControllerProvider);
 
   final parts = email.split("@");
   if (parts[0].length > 2) {
@@ -27,7 +32,7 @@ final hiddenEmailProvider = Provider.autoDispose<String>((Ref ref) {
 });
 
 final isValidEmailProvider = Provider.autoDispose<bool>((Ref ref) {
-  final email = ref.watch(emailNotifierProvider);
+  final email = ref.watch(emailControllerProvider);
   final emailRegExp = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
   if (emailRegExp.hasMatch(email)) {
     return true;

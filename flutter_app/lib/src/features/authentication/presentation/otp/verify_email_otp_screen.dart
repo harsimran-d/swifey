@@ -6,7 +6,7 @@ import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
 import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
 import 'package:swifey/src/router/router.dart';
 
-import '../email_notifier_provider.dart';
+import '../email_controller.dart';
 import 'otp_input_field.dart';
 import 'otp_notifier_provider.dart';
 

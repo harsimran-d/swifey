@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
 
-import '../email_notifier_provider.dart';
+import '../email_controller.dart';
 import '../otp/verify_email_otp_screen.dart';
 
 class SignupScreen extends ConsumerWidget {
@@ -38,7 +38,9 @@ class SignupScreen extends ConsumerWidget {
                 TextField(
                   focusNode: FocusNode()..requestFocus(),
                   onChanged: (value) {
-                    ref.read(emailNotifierProvider.notifier).updateEmail(value);
+                    ref
+                        .read(emailControllerProvider.notifier)
+                        .updateEmail(value);
                   },
                 ),
                 const Spacer(),
