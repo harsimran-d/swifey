@@ -20,7 +20,7 @@ class TopProgressBar extends StatelessWidget {
             ),
             Container(
               height: 8,
-              width: constraints.maxWidth * steps / 8,
+              width: constraints.maxWidth * steps / 6,
               color: Colors.red,
             ),
           ],

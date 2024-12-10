@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/features/onboarding/presentation/work/work_screen.dart';
 
 import '../top_progress_bar.dart';
 
@@ -132,7 +133,9 @@ class InterestScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: PrimaryButton(
                   buttonText: "Next",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(WorkScreen.screen());
+                  },
                   disabled: false,
                 ),
               )
