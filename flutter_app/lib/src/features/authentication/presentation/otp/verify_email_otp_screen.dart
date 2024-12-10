@@ -76,7 +76,10 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                         ),
                         children: [
                           TextSpan(
-                            recognizer: TapGestureRecognizer()..onTap = () {},
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                showNotImplementedAlertDialog(context: context);
+                              },
                             text: "Update",
                             style: const TextStyle(
                               color: Color(0xFFB43625),

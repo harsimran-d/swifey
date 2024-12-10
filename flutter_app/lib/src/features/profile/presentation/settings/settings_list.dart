@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swifey/src/common/widgets/dialogs/alert_dialogs.dart';
 import 'package:swifey/src/features/authentication/data/auth_repo.dart';
 import 'package:swifey/src/features/authentication/presentation/auth_controller.dart';
-import 'package:swifey/src/features/reclaim/presentation/reclaim_screen.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({
@@ -21,13 +21,19 @@ class SettingsList extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
+                onTap: () {
+                  showNotImplementedAlertDialog(context: context);
+                },
                 leading: Text(
                   'Email',
                   style: TextStyle(fontSize: 16),
                 ),
                 title: Consumer(builder: (context, ref, _) {
-                  final user = ref.watch(authRepoProvider)!;
-                  final email = user.email;
+                  final user = ref.watch(authRepoProvider);
+                  String email = "";
+                  if (user != null) {
+                    email = user.email;
+                  }
                   return Text(
                     email,
                     textAlign: TextAlign.end,
@@ -45,6 +51,9 @@ class SettingsList extends StatelessWidget {
                 endIndent: 20,
               ),
               ListTile(
+                onTap: () {
+                  showNotImplementedAlertDialog(context: context);
+                },
                 leading: Text(
                   'Phone number',
                   style: TextStyle(fontSize: 16),
@@ -71,7 +80,10 @@ class SettingsList extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const ListTile(
+              ListTile(
+                onTap: () {
+                  showNotImplementedAlertDialog(context: context);
+                },
                 leading: Text(
                   'Location',
                   style: TextStyle(fontSize: 16),
@@ -98,8 +110,10 @@ class SettingsList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ReclaimExample()));
+                    showNotImplementedAlertDialog(context: context);
+                    // ! Reclaim Disabled until fix is found
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => ReclaimExample()));
                   },
                   leading: const Text(
                     'Status',

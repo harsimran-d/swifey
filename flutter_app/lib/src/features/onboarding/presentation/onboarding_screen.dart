@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swifey/src/common/widgets/buttons/primary_button.dart';
+import 'package:swifey/src/common/widgets/dialogs/alert_dialogs.dart';
 import 'package:swifey/src/features/onboarding/presentation/name/name_screen.dart';
 
 import 'welcome/heading.dart';
@@ -69,7 +71,11 @@ class OnboardingScreen extends ConsumerWidget {
                         color: Colors.blue[800],
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
-                      ))
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          showNotImplementedAlertDialog(context: context);
+                        })
                 ])),
             SizedBox(height: 20),
             Heading("Play it cool."),

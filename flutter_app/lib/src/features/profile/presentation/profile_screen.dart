@@ -13,7 +13,8 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authRepoProvider)!;
+    final user = ref.watch(authRepoProvider);
+    if (user == null) return Scaffold();
     final name = user.name;
     final age = user.birthday.difference(DateTime.now());
     return Scaffold(
