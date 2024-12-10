@@ -13,31 +13,66 @@ class NavigationShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final current = navigationShell.currentIndex;
     return Scaffold(
-      body: navigationShell,
-      bottomSheet: NavigationBar(
-        backgroundColor: Colors.white,
-        selectedIndex: current,
-        indicatorColor: Colors.transparent,
-        destinations: [
-          NavigationDestination(
-              icon: Icon(
-                Icons.home,
-                color: current == 0 ? Colors.red : Colors.grey[800],
-              ),
-              label: ""),
-          NavigationDestination(
-              icon: Icon(
-                Icons.person,
-                color: current == 1 ? Colors.red : Colors.grey[800],
-              ),
-              label: "")
-        ],
-        onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == current,
-          );
-        },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(child: navigationShell),
+            Divider(
+              color: Colors.grey,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    navigationShell.goBranch(
+                      0,
+                      initialLocation: 0 == current,
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.home,
+                        size: current == 0 ? 30 : 22,
+                        color: current == 0 ? Colors.red : Colors.grey[800],
+                      ),
+                      Text("Home",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: current == 0 ? Colors.red : Colors.grey[800],
+                          ))
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    navigationShell.goBranch(
+                      1,
+                      initialLocation: 1 == current,
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.person,
+                        size: current == 1 ? 30 : 22,
+                        color: current == 1 ? Colors.red : Colors.grey[800],
+                      ),
+                      Text(
+                        "Profile",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color:
+                                current == 1 ? Colors.red : Colors.grey[800]),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
