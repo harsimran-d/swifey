@@ -17,11 +17,11 @@ final matchShellKey = GlobalKey<NavigatorState>();
 final profileShellKey = GlobalKey<NavigatorState>();
 
 final goRouterProvider = Provider<GoRouter>((Ref ref) {
+  final user = ref.watch(authRepoProvider);
   return GoRouter(
       navigatorKey: _goRouterKey,
       debugLogDiagnostics: true,
       redirect: (context, state) {
-        final user = ref.watch(authRepoProvider);
         final isAuthenticated = user != null;
         final guestOnlyPaths = ['/signin', '/signup', '/'];
         final loginRequiredPaths = ['/match', '/profile'];
