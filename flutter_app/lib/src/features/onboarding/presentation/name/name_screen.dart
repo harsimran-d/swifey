@@ -7,10 +7,28 @@ import '../top_progress_bar.dart';
 import 'lets_go_dialog.dart';
 import 'name_controller.dart';
 
-class NameScreen extends StatelessWidget {
+class NameScreen extends StatefulWidget {
   static MaterialPageRoute screen() =>
       MaterialPageRoute(builder: (context) => NameScreen());
   const NameScreen({super.key});
+
+  @override
+  State<NameScreen> createState() => _NameScreenState();
+}
+
+class _NameScreenState extends State<NameScreen> {
+  final _focusNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +60,7 @@ class NameScreen extends StatelessWidget {
                 ),
                 Consumer(builder: (context, ref, child) {
                   return TextFormField(
-                    focusNode: FocusNode()..requestFocus(),
+                    focusNode: _focusNode,
                     decoration: InputDecoration(
                       hintText: "Enter first name",
                       hintStyle: TextStyle(color: Colors.grey),
@@ -77,6 +95,7 @@ class NameScreen extends StatelessWidget {
                             context: context,
                             builder: (context) => LetsGoDialog());
                         if (goAhead != null && goAhead) {
+                          _focusNode.unfocus();
                           navigator.push(BirthdayScreen.screen());
                         }
                       },

@@ -38,10 +38,6 @@ class _OtpInputFieldState extends ConsumerState<OtpInputField> {
       // Move to the next focus node if there is one
       if (index + 1 < _focusNodes.length) {
         FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-      } else {
-        // Unfocus the last field
-
-        _focusNodes[index].unfocus();
       }
     }
   }

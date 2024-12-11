@@ -18,6 +18,7 @@ class OnboardingScreen extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(

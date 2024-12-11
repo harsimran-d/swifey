@@ -8,8 +8,9 @@ import 'package:swifey/src/features/onboarding/presentation/top_progress_bar.dar
 import '../gender/gender_screen.dart';
 
 class BirthdayScreen extends StatelessWidget {
-  static MaterialPageRoute screen() =>
-      MaterialPageRoute(builder: (context) => BirthdayScreen());
+  static MaterialPageRoute screen() => MaterialPageRoute(
+        builder: (context) => BirthdayScreen(),
+      );
   const BirthdayScreen({super.key});
 
   @override

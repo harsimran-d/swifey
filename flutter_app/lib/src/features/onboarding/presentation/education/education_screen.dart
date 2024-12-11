@@ -13,88 +13,94 @@ class EducationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
             child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TopProgressBar(steps: 6),
-        Row(children: [
-          BackButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          Spacer(),
-          Consumer(
-            builder: (context, ref, child) => GestureDetector(
-              onTap: () {
-                ref.read(authControllerProvider.notifier).signup();
-                showCreateProfile(context);
-              },
-              child: Text(
-                "Skip",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TopProgressBar(steps: 6),
+            Row(children: [
+              BackButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-            ),
-          ),
-          SizedBox(
-            width: 30,
-          )
-        ]),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "If studying is \nyour thing?",
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Enter Degree",
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
-                  keyboardType: TextInputType.name,
-                  onEditingComplete: () {},
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Enter College Name",
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
-                  keyboardType: TextInputType.name,
-                  onEditingComplete: () {},
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Spacer(),
-                Consumer(
-                  builder: (context, ref, _) => PrimaryButton(
-                    buttonText: "Create Profile",
-                    onPressed: () {
-                      ref.read(authControllerProvider.notifier).signup();
-                      showCreateProfile(context);
-                    },
-                    disabled: false,
+              Spacer(),
+              Consumer(
+                builder: (context, ref, child) => GestureDetector(
+                  onTap: () {
+                    ref.read(authControllerProvider.notifier).signup();
+                    showCreateProfile(context);
+                  },
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
-              ],
-            ),
-          ),
-        )
-      ],
-    )));
+              ),
+              SizedBox(
+                width: 30,
+              )
+            ]),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "If studying is \nyour thing?",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Enter Degree",
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                      keyboardType: TextInputType.name,
+                      onChanged: (value) {},
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Enter College Name",
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                      keyboardType: TextInputType.name,
+                      onChanged: (value) {},
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Spacer(),
+                    Consumer(
+                      builder: (context, ref, _) => PrimaryButton(
+                        buttonText: "Create Profile",
+                        onPressed: () {
+                          ref.read(authControllerProvider.notifier).signup();
+                          showCreateProfile(context);
+                        },
+                        disabled: false,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        )));
   }
 
   Future<dynamic> showCreateProfile(BuildContext context) {
