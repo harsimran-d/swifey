@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +12,7 @@ import 'otp_notifier_provider.dart';
 
 enum VerifyOtpType { signup, signin }
 
-class VerifyEmailOtpScreen extends ConsumerWidget {
+class VerifyEmailOtpScreen extends ConsumerStatefulWidget {
   const VerifyEmailOtpScreen({
     required this.verificationType,
     super.key,
@@ -22,7 +20,75 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
   final VerifyOtpType verificationType;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<VerifyEmailOtpScreen> createState() =>
+      VerifyEmailOtpScreenState();
+}
+
+class VerifyEmailOtpScreenState extends ConsumerState<VerifyEmailOtpScreen> {
+  final TapGestureRecognizer _gestureRecognizer = TapGestureRecognizer();
+
+  @override
+  void initState() {
+    super.initState();
+    _gestureRecognizer.onTap = () {
+      final navigator = Navigator.of(context);
+      Future.delayed(Duration(seconds: 1), () {
+        if (context.mounted) {
+          navigator.pop();
+        }
+      });
+      showModalBottomSheet<void>(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        isDismissible: false,
+        context: context,
+        builder: (innercontext) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Icon(
+                      Icons.sms_outlined,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    const Text(
+                      'Another OTP on its way',
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    };
+  }
+
+  @override
+  void dispose() {
+    _gestureRecognizer.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final hiddenEmail = ref.watch(hiddenEmailProvider);
     final disabled = ref.watch(isOTPCompletedProvider);
     return Scaffold(
@@ -54,59 +120,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                       ),
                       children: [
                         TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              showModalBottomSheet<void>(
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                isDismissible: true,
-                                context: context,
-                                builder: (context) {
-                                  Timer(Duration(seconds: 2), () {
-                                    if (context.mounted &&
-                                        Navigator.of(context).canPop()) {
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0, vertical: 30),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            const Icon(
-                                              Icons.sms_outlined,
-                                              color: Colors.red,
-                                              size: 40,
-                                            ),
-                                            const Text(
-                                              'Another OTP on its way',
-                                              style: TextStyle(
-                                                fontSize: 24,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                          recognizer: _gestureRecognizer,
                           text: "  Resend",
                           style: const TextStyle(
                             color: Color(0xFF2F71BA),
@@ -118,7 +132,7 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                if (verificationType == VerifyOtpType.signup)
+                if (widget.verificationType == VerifyOtpType.signup)
                   RichText(
                     text: TextSpan(
                         text: "Don't have access to this email?  ",
@@ -150,11 +164,12 @@ class VerifyEmailOtpScreen extends ConsumerWidget {
                     width: 300,
                     child: PrimaryButton(
                       disabled: disabled,
-                      buttonText: verificationType == VerifyOtpType.signup
-                          ? "Confirm email"
-                          : "Sign In",
+                      buttonText:
+                          widget.verificationType == VerifyOtpType.signup
+                              ? "Confirm email"
+                              : "Sign In",
                       onPressed: () {
-                        if (verificationType == VerifyOtpType.signup) {
+                        if (widget.verificationType == VerifyOtpType.signup) {
                           context.goNamed(AppRoutes.onboarding.name);
 
                           showDialog(
