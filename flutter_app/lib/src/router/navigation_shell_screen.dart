@@ -23,50 +23,59 @@ class NavigationShellScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
+                InkWell(
+                  borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     navigationShell.goBranch(
                       0,
                       initialLocation: 0 == current,
                     );
                   },
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.home,
-                        size: current == 0 ? 30 : 22,
-                        color: current == 0 ? Colors.red : Colors.grey[800],
-                      ),
-                      Text("Home",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: current == 0 ? Colors.red : Colors.grey[800],
-                          ))
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.home,
+                          size: 30,
+                          color: current == 0 ? Colors.red : Colors.grey[800],
+                        ),
+                        Text("Home",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  current == 0 ? Colors.red : Colors.grey[800],
+                            ))
+                      ],
+                    ),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
+                  borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     navigationShell.goBranch(
                       1,
                       initialLocation: 1 == current,
                     );
                   },
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.person,
-                        size: current == 1 ? 30 : 22,
-                        color: current == 1 ? Colors.red : Colors.grey[800],
-                      ),
-                      Text(
-                        "Profile",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color:
-                                current == 1 ? Colors.red : Colors.grey[800]),
-                      )
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.person,
+                          size: 30,
+                          color: current == 1 ? Colors.red : Colors.grey[800],
+                        ),
+                        Text(
+                          "Profile",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  current == 1 ? Colors.red : Colors.grey[800]),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
