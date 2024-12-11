@@ -15,10 +15,10 @@ class SwipeableCardWidget extends ConsumerStatefulWidget {
 class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
     with TickerProviderStateMixin {
   late AnimationController _swipeAnimationController;
-  late AnimationController _scaleAnimationController;
+  // late AnimationController _tumbleAnimationController;
 
   late Animation<Offset> _swipeAnimation;
-
+  // late Animation<double> _tumbleAnimation;
   double _dragDistance = 0.0;
 
   @override
@@ -29,18 +29,16 @@ class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
       duration: const Duration(milliseconds: 300),
     );
 
-    _scaleAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _scaleAnimationController.forward();
+    // _tumbleAnimationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 300),
+    // );
   }
 
   @override
   void dispose() {
     _swipeAnimationController.dispose();
-    _scaleAnimationController.dispose();
+    // _tumbleAnimationController.dispose();
     super.dispose();
   }
 
@@ -57,21 +55,31 @@ class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
       setState(() {
         _dragDistance = 0;
       });
-
       _swipeAnimationController.reset();
-      _scaleAnimationController.forward(from: 0.9);
-
-      // Fetch more profiles if at the end of the list
-
       ref.read(profileProvider.notifier).fetchMoreProfiles();
     });
   }
 
   void _onSwipeRight() {
+    // _tumbleAnimation = Tween<double>(
+    //   begin: 0,
+    //   end: pi * 0.1,
+    // ).animate(CurvedAnimation(
+    //   parent: _tumbleAnimationController,
+    //   curve: Curves.easeInOut,
+    // ));
+    // _tumbleAnimationController.forward();
     _animateCardOffscreen(300);
   }
 
   void _onSwipeLeft() {
+    // _tumbleAnimation = Tween<double>(
+    //   begin: 0,
+    //   end: pi * -0.1,
+    // ).animate(CurvedAnimation(
+    //   parent: _tumbleAnimationController,
+    //   curve: Curves.easeInOut,
+    // ));
     _animateCardOffscreen(-300);
   }
 
@@ -133,11 +141,16 @@ class SwipeableCardWidgetState extends ConsumerState<SwipeableCardWidget>
                             child: AnimatedBuilder(
                               animation: _swipeAnimationController,
                               builder: (context, child) {
-                                return Transform.translate(
-                                  offset: _swipeAnimationController.isAnimating
-                                      ? _swipeAnimation.value
-                                      : Offset(_dragDistance, 0),
-                                  child: child,
+                                return Transform.rotate(
+                                  alignment: Alignment.bottomCenter,
+                                  angle: _dragDistance * 0.001,
+                                  child: Transform.translate(
+                                    offset:
+                                        _swipeAnimationController.isAnimating
+                                            ? _swipeAnimation.value
+                                            : Offset(_dragDistance, 0),
+                                    child: child,
+                                  ),
                                 );
                               },
                               child: ProfileCard(profile: profile),
